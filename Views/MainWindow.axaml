@@ -1,0 +1,39 @@
+<mx:MxWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication1.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
+		xmlns:mxtl="https://schemas.eremexcontrols.net/avalonia/treelist"
+		xmlns:mxi="https://schemas.eremexcontrols.net/avalonia/icons"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication1.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/EMXControls.ico"
+        Title="AvaloniaApplication1">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Grid RowDefinitions="*, Auto">
+		<mxtl:TreeListControl x:Name="treeList" ItemsSource="{Binding Tasks}" AutoExpandAllNodes="True" ChildrenFieldName="Tasks" HasChildrenFieldName="HasTasks">
+			<mxtl:TreeListColumn FieldName="HighPriority" Header=" " Width="32">
+				<mxtl:TreeListColumn.CellTemplate>
+					<DataTemplate>
+						<Border ToolTip.Tip="High Priority" Background="Transparent">
+							<Image Width="16" Height="16" Stretch="None" IsVisible="{Binding Value}"
+								   Source="{x:Static mxi:Basic.Error}" />
+						</Border>
+					</DataTemplate>
+				</mxtl:TreeListColumn.CellTemplate>
+			</mxtl:TreeListColumn>
+			<mxtl:TreeListColumn FieldName="Name" Width="*" />
+		</mxtl:TreeListControl>
+		<Button Grid.Row="1" Content="Update Priority" Command="{Binding UpdateCommand}" />
+	</Grid>
+
+
+</mx:MxWindow>
